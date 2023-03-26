@@ -25,11 +25,11 @@ public class ImageService {
         image.setBlog(blog);
 
         //also add image in blog image list
-        List<Image> imageList = blog.getImageList();
+        List<Image> imageList = blog.getImagesList();
         imageList.add(image);
 
         //set imageList
-        blog.setImageList(imageList);
+        blog.setImagesList(imageList);
 
         blogRepository2.save(blog);
 
@@ -43,8 +43,8 @@ public class ImageService {
 
         //also delete from blog
         for(Blog blog : blogRepository2.findAll()) {
-            if(blog.getImageList().contains(image)) {
-                blog.getImageList().remove(image);
+            if(blog.getImagesList().contains(image)) {
+                blog.getImagesList().remove(image);
                 blogRepository2.save(blog);
                 break;
             }

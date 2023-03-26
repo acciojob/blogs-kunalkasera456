@@ -10,36 +10,38 @@ import java.util.List;
 @Entity
 @Table(name = "blog")
 public class Blog {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     private String title;
-
     private String content;
-
     @CreationTimestamp
-    private Date date;
+    private Date pubDate;
 
     @ManyToOne
     @JoinColumn
-    User user;
+    private User user;
 
-    @OneToMany(mappedBy = "blog", cascade = CascadeType.ALL)
-    List<Image> imageList = new ArrayList<>();
+    @OneToMany(mappedBy = "blog",cascade = CascadeType.ALL)
+    private List<Image>imagesList=new ArrayList<>();
 
-    public Blog() {
-
+    public List<Image> getImagesList() {
+        return imagesList;
     }
 
-    public Blog(int id, String title, String content, Date date, User user, List<Image> imageList) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.date = date;
+    public void setImagesList(List<Image> imagesList) {
+        this.imagesList = imagesList;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
         this.user = user;
-        this.imageList = imageList;
+    }
+
+    public Blog() {
     }
 
     public int getId() {
@@ -66,27 +68,11 @@ public class Blog {
         this.content = content;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getPubDate() {
+        return pubDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public List<Image> getImageList() {
-        return imageList;
-    }
-
-    public void setImageList(List<Image> imageList) {
-        this.imageList = imageList;
+    public void setPubDate(Date pubDate) {
+        this.pubDate = pubDate;
     }
 }
