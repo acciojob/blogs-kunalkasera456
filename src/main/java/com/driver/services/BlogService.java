@@ -29,9 +29,9 @@ public class BlogService {
         blog.setTitle(title);
         blog.setContent(content);
         blog.setUser(user);
-        user.getBlogs().add(blog);
+        user.getBlogList().add(blog);
 
-        user.getBlogs().add(blog);
+        user.getBlogList().add(blog);
 
         userRepository1.save(user);
 
@@ -46,8 +46,8 @@ public class BlogService {
 
         // alse delete from user
         for(User user:userRepository1.findAll()){
-            if(user.getBlogs().contains(blog)){
-                user.getBlogs().remove(blog);
+            if(user.getBlogList().contains(blog)){
+                user.getBlogList().remove(blog);
                 userRepository1.save(user);
                 break;
             }
