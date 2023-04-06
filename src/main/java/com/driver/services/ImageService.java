@@ -38,36 +38,37 @@ public class ImageService {
     }
 
     public void deleteImage(Integer id){
-        Image image = imageRepository2.findById(id).get();
-        imageRepository2.delete(image);
-
-        //also delete from blog
-        for(Blog blog : blogRepository2.findAll()) {
-            if(blog.getImageList().contains(image)) {
-                blog.getImageList().remove(image);
-                blogRepository2.save(blog);
-                break;
-            }
-        }
+//        Image image = imageRepository2.findById(id).get();
+//        imageRepository2.delete(image);
+//
+//        //also delete from blog
+//        for(Blog blog : blogRepository2.findAll()) {
+//            if(blog.getImageList().contains(image)) {
+//                blog.getImageList().remove(image);
+//                blogRepository2.save(blog);
+//                break;
+//            }
+//        }
+        imageRepository2.deleteById(id);
     }
 
     public int countImagesInScreen(Integer id, String screenDimensions) {
         //Find the number of images of given dimensions that can fit in a screen having `screenDimensions`
 
-        int count=0;
-        Image image=imageRepository2.findById(id).get();
-        image.getDimensions();
-        String bigSreen[]=screenDimensions.split("X");
-        int x=Integer.parseInt(bigSreen[0]);
-        int y=Integer.parseInt(bigSreen[1]);
-        int screenArea=x*y;
+        Image image = imageRepository2.findById(id).get();
+        String availableDimension = image.getDimensions();
+        String[] arr = availableDimension.split("X");
+        String[] brr = screenDimensions.split("X");
 
-        String imageSize[]=image.getDimensions().split("X");
-        int m=Integer.parseInt(imageSize[0]);
-        int n=Integer.parseInt(imageSize[1]);
-        int imageArea=m*n;
+        int screenWidth = Integer.parseInt(brr[0]);
+        int screenHeight = Integer.parseInt(brr[1]);
+        int imageWidth = Integer.parseInt(arr[0]);
+        int imageHeight = Integer.parseInt(arr[1]);
 
-        return screenArea/imageArea;
+        int a = screenHeight/imageHeight;
+        int b = screenWidth/imageWidth;
+
+        return a*b;
 
     }
 }
